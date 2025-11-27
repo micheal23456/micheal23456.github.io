@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Micheal Raj F - MERN Full Stack Developer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <style>
+      :root {
+        --butter-white: #f8f7f4;
+        --dark-text: #2c3e50;
+        --accent-green: #27ae60;
+        --accent-blue: #3498db;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--butter-white);
+        color: var(--dark-text);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: var(--shadow);
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+      }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--accent-green);
+      }
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: var(--dark-text);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--accent-green);
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: var(--dark-text);
+        margin: 3px 0;
+        transition: 0.3s;
+      }
+      #hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, var(--butter-white) 0%, #e8e6e0 100%);
+        text-align: center;
+      }
+      .hero-content h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, var(--accent-green), var(--accent-blue));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-content p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+      .btn {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: var(--accent-green);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: var(--shadow);
+      }
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(39, 174, 96, 0.3);
+      }
+      section {
+        padding: 5rem 0;
+      }
+      section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+      section h2::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--accent-green);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat i {
+        font-size: 3rem;
+        color: var(--accent-blue);
+        margin-bottom: 1rem;
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+      .project-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s;
+      }
+      .project-card:hover {
+        transform: translateY(-10px);
+      }
+      .project-image {
+        height: 200px;
+        background: linear-gradient(45deg, var(--accent-green), var(--accent-blue));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 4rem;
+      }
+      .project-content {
+        padding: 2rem;
+      }
+      .project-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--accent-green);
+      }
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .tech-tag {
+        background: var(--accent-green);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+      .skill-item {
+        background: white;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+      }
+      .skill-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      .skill-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .skill-percentage {
+        font-weight: 700;
+        color: var(--accent-green);
+      }
+      .skill-bar {
+        height: 10px;
+        background: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .skill-progress {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+        border-radius: 5px;
+        width: 0;
+        transition: width 2s ease-in-out;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+      .contact-info,
+      .contact-form {
+        background: white;
+        padding: 3rem;
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+      .contact-item i {
+        font-size: 1.5rem;
+        color: var(--accent-green);
+        margin-right: 1rem;
+        width: 40px;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-family: inherit;
+        transition: border 0.3s;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent-green);
+      }
+      .form-message {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        display: none;
+      }
+      .form-message.success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        display: block;
+      }
+      .form-message.error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        display: block;
+      }
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: white;
+          flex-direction: column;
+          padding: 1rem;
+          box-shadow: var(--shadow);
+        }
+        .nav-links.active {
+          display: flex;
+        }
+        .about-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <div class="logo">Micheal Raj F</div>
+        <ul class="nav-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </nav>
+    </header>
+
+    <section id="hero" class="fade-in">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Micheal Raj F</h1>
+          <p>MERN Stack Full Stack Developer | Azhagiyamandapam, Kanyakumari</p>
+          <p><strong>Mashup Stack Course | BE ECE 2025</strong></p>
+          <a href="#contact" class="btn">Get In Touch</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2>About Me</h2>
+        <div class="about-grid">
+          <div>
+            <h3>Full Stack Developer</h3>
+            <p>
+              BE ECE graduate from Narayanaguru College of Engineering (2025)
+              mastering MERN stack through Mashup Stack course. Built 4 full-stack
+              apps: Recipe platform, Medical store, Water intake tracker, and
+              Bookmark manager.
+            </p>
+            <div class="stats">
+              <div class="stat">
+                <i class="fas fa-code"></i>
+                <h4>4</h4>
+                <p>Full Stack Projects</p>
+              </div>
+              <div class="stat">
+                <i class="fas fa-clock"></i>
+                <h4>800+</h4>
+                <p>Coding Hours</p>
+              </div>
+              <div class="stat">
+                <i class="fas fa-users"></i>
+                <h4>Cricket & Anime</h4>
+                <p>Hobbies</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p><strong>Phone:</strong> +91 8870940289</p>
+            <p><strong>Email:</strong> michealrajmichealraj710@gmail.com</p>
+            <p>
+              <strong>Location:</strong> Azhagiyamandapam, Kanyakumari Dist, Tamil
+              Nadu
+            </p>
+            <p><strong>Education:</strong> BE ECE, Narayanaguru College of Engineering (2025)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card fade-in">
+            <div class="project-image"><i class="fas fa-utensils"></i></div>
+            <div class="project-content">
+              <h3 class="project-title">Recipe Sharing Platform</h3>
+              <p>
+                Complete MERN app with admin panel (user block/unblock, recipe
+                moderation) + user CRUD operations, authentication, profiles.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">MongoDB</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card fade-in">
+            <div class="project-image"><i class="fas fa-pills"></i></div>
+            <div class="project-content">
+              <h3 class="project-title">Medical Store Management</h3>
+              <p>
+                E-commerce platform with product catalog, cart, admin dashboard
+                for inventory and order management.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Bootstrap</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card fade-in">
+            <div class="project-image"><i class="fas fa-tint"></i></div>
+            <div class="project-content">
+              <h3 class="project-title">Water Intake Tracker</h3>
+              <p>
+                Daily water consumption tracker with progress visualization,
+                reminders, and user statistics.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">CSS</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card fade-in">
+            <div class="project-image"><i class="fas fa-bookmark"></i></div>
+            <div class="project-content">
+              <h3 class="project-title">Bookmark Manager</h3>
+              <p>
+                Personal bookmarking website with user authentication,
+                categorization, and search functionality.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">MongoDB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-item fade-in">
+            <div class="skill-header">
+              <span class="skill-name">React.js</span>
+              <span class="skill-percentage">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" data-width="85"></div>
+            </div>
+          </div>
+          <div class="skill-item fade-in">
+            <div class="skill-header">
+              <span class="skill-name">Node.js / Express</span>
+              <span class="skill-percentage">80%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" data-width="80"></div>
+            </div>
+          </div>
+          <div class="skill-item fade-in">
+            <div class="skill-header">
+              <span class="skill-name">MongoDB</span>
+              <span class="skill-percentage">75%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" data-width="75"></div>
+            </div>
+          </div>
+          <div class="skill-item fade-in">
+            <div class="skill-header">
+              <span class="skill-name">JavaScript</span>
+              <span class="skill-percentage">90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" data-width="90"></div>
+            </div>
+          </div>
+          <div class="skill-item fade-in">
+            <div class="skill-header">
+              <span class="skill-name">HTML5 / CSS3</span>
+              <span class="skill-percentage">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" data-width="85"></div>
+            </div>
+          </div>
+          <div class="skill-item fade-in">
+            <div class="skill-header">
+              <span class="skill-name">Bootstrap</span>
+              <span class="skill-percentage">80%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" data-width="80"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2>Contact</h2>
+        <div class="contact-grid">
+          <div class="contact-info fade-in">
+            <h3>Get In Touch</h3>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <h4>Location</h4>
+                <p>Azhagiyamandapam, Kanyakumari Dist, Tamil Nadu</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <h4>Phone</h4>
+                <p>+91 8870940289</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <h4>Email</h4>
+                <p>michealrajmichealraj710@gmail.com</p>
+              </div>
+            </div>
+          </div>
+          <form class="contact-form fade-in" id="contactForm">
+            <div class="form-message" id="formMessage"></div>
+            <div class="form-group">
+              <input type="text" id="user_name" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input type="email" id="user_email" placeholder="Your Email" required />
+            </div>
+            <div class="form-group">
+              <input type="text" id="user_subject" placeholder="Subject" required />
+            </div>
+            <div class="form-group">
+              <textarea
+                id="message"
+                rows="5"
+                placeholder="Your Message"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      emailjs.init("SCGG5mpw4GYW0I6ju");
+
+      document.querySelector(".hamburger").addEventListener("click", () => {
+        document.querySelector(".nav-links").classList.toggle("active");
+        document.querySelector(".hamburger").classList.toggle("active");
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document
+            .querySelector(this.getAttribute("href"))
+            .scrollIntoView({ behavior: "smooth", block: "start" });
+          document.querySelector(".nav-links").classList.remove("active");
+        });
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              const progressBars = entry.target.querySelectorAll(".skill-progress");
+              progressBars.forEach(
+                (bar) => (bar.style.width = bar.dataset.width + "%")
+              );
+            }
+          });
+        },
+        { threshold: 0.5, rootMargin: "0px 0px -100px 0px" }
+      );
+
+      document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          emailjs
+            .send("service_asubih2", "template_t5rc41r", {
+              from_name: document.getElementById("user_name").value,
+              from_email: document.getElementById("user_email").value,
+              subject: document.getElementById("user_subject").value,
+              message: document.getElementById("message").value,
+              to_email: "michealrajmichealraj710@gmail.com",
+            })
+            .then(
+              () => {
+                document.getElementById("formMessage").className =
+                  "form-message success";
+                document.getElementById(
+                  "formMessage"
+                ).textContent = "✅ Message sent successfully! Check your Gmail.";
+                this.reset();
+              },
+              (error) => {
+                document.getElementById("formMessage").className =
+                  "form-message error";
+                document.getElementById(
+                  "formMessage"
+                ).textContent =
+                  "❌ Failed to send. Try again or contact directly.";
+                console.error("EmailJS error:", error);
+              }
+            );
+        });
+    </script>
+  </body>
+</html>
+
